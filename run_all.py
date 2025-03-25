@@ -1,16 +1,15 @@
 import random
 import time
-from merge_sort import merge_sort, iteration_count as merge_sort_iterations
+from merge_sort import merge_sort, reset_merge_sort_iterations, merge_sort_iterations
 from max_value import max_val
-from max_value_dc import max_val_dc, iteration_count as max_val_dc_iterations
-from multi_bits import multiply, iteration_count as multiply_iterations
+from max_value_dc import max_val_dc, reset_max_val_dc_iterations, max_val_dc_iterations
+from multi_bits import multiply, reset_multiply_iterations, multiply_iterations
 
 def run_merge_sort(sizes):
     results = []
     for size in sizes:
         arr = [random.randint(0, 1000000) for _ in range(size)]
-        global merge_sort_iterations
-        merge_sort_iterations = 0
+        reset_merge_sort_iterations()  # Reiniciar o contador
         start_time = time.time()
         merge_sort(arr)
         elapsed_time = time.time() - start_time
@@ -31,12 +30,11 @@ def run_max_val_dc(sizes):
     results = []
     for size in sizes:
         arr = [random.randint(0, 1000000) for _ in range(size)]
-        global max_val_dc_iterations
-        max_val_dc_iterations = 0
+        reset_max_val_dc_iterations()  # Reiniciar o contador
         start_time = time.time()
         max_val_dc(arr, 0, len(arr) - 1)
         elapsed_time = time.time() - start_time
-        results.append((elapsed_time, max_val_dc_iterations))
+        results.append((elapsed_time, max_val_dc_iterations))  # Ensure max_val_dc_iterations is imported
     return results
 
 def run_multiply(bit_sizes):
@@ -44,8 +42,7 @@ def run_multiply(bit_sizes):
     for bits in bit_sizes:
         x = (1 << bits) - 1  # Maior número de n-bits
         y = (1 << bits) - 2  # Segundo maior número de n-bits
-        global multiply_iterations
-        multiply_iterations = 0  # Reiniciar o contador
+        reset_multiply_iterations()  # Reiniciar o contador
         start_time = time.time()
         multiply(x, y, bits)
         elapsed_time = time.time() - start_time

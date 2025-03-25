@@ -1,25 +1,24 @@
 import time
 
 # Contador global para iterações
-iteration_count = 0
+multiply_iterations = 0
 
 def multiply(x, y, n):
-    """Multiplicação de inteiros de n-bits usando divisão e conquista."""
-    global iteration_count
+    global multiply_iterations
 
-    # Caso base: se n = 1, retorna o produto diretamente
-    if n == 1:
-        iteration_count += 1
+    # Caso base
+    if n <= 1:
+        multiply_iterations += 1
         return x * y
 
     # Dividir n ao meio
-    m = (n + 1) // 2
+    m = n // 2
 
     # Dividir os números em partes altas e baixas
-    a = x >> m  # Parte alta de x (x // 2^m)
-    b = x & ((1 << m) - 1)  # Parte baixa de x (x mod 2^m)
-    c = y >> m  # Parte alta de y (y // 2^m)
-    d = y & ((1 << m) - 1)  # Parte baixa de y (y mod 2^m)
+    a = x >> m
+    b = x & ((1 << m) - 1)
+    c = y >> m
+    d = y & ((1 << m) - 1)
 
     # Recursivamente calcular os produtos
     e = multiply(a, c, m)
@@ -28,5 +27,10 @@ def multiply(x, y, n):
     h = multiply(a, d, m)
 
     # Combinar os resultados
-    iteration_count += 1
+    multiply_iterations += 1
     return (e << (2 * m)) + ((g + h) << m) + f
+
+# Reiniciar o contador de iterações
+def reset_multiply_iterations():
+    global multiply_iterations
+    multiply_iterations = 0

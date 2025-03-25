@@ -2,10 +2,10 @@ import random
 import time
 
 # Contador global para iterações
-iteration_count = 0
+merge_sort_iterations = 0
 
 def merge_sort(arr):
-    global iteration_count
+    global merge_sort_iterations
     if len(arr) <= 1:
         return arr
 
@@ -22,13 +22,13 @@ def merge_sort(arr):
     return merge(left_sorted, right_sorted)
 
 def merge(left, right):
-    global iteration_count
+    global merge_sort_iterations
     result = []
     i = j = 0
 
     # Mesclar as duas listas ordenadas
     while i < len(left) and j < len(right):
-        iteration_count += 1
+        merge_sort_iterations += 1
         if left[i] < right[j]:
             result.append(left[i])
             i += 1
@@ -40,3 +40,8 @@ def merge(left, right):
     result.extend(left[i:])
     result.extend(right[j:])
     return result
+
+# Reiniciar o contador de iterações
+def reset_merge_sort_iterations():
+    global merge_sort_iterations
+    merge_sort_iterations = 0
